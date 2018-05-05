@@ -1,7 +1,8 @@
+# This file is to decode messages from audio recording in realtime.
+
 import numpy as np
 import scipy.io.wavfile
 from scipy.signal import spectrogram,medfilt
-from IPython import embed
 
 filename = "test-001.wav"
 audio_sample = scipy.io.wavfile.read(filename)
@@ -38,5 +39,3 @@ convolved = np.convolve(kernel,compressed_freq_range)
 med_filtered = medfilt(compressed_freq_range,kernel_size=177)
 plt.plot(med_filtered)
 plt.show()
-
-embed()
