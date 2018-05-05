@@ -1,4 +1,4 @@
-# Covert Communication System Via CPU Fan and Microphone
+# Covert Communication Protocol Via CPU Fan and Microphone
 ## Security Lab Group Project, Spring 2018 
 
 The goal of this project is to create a system that could be used to relay information from one computer to another within close physical proximity.
@@ -29,7 +29,12 @@ Here we see spectrograms of audio recordings at two different microphone locatio
 ![](https://github.com/doug145/ECE-419---Final-Project/blob/master/readme_images/spectrogram.png?raw=true)
 
 
+## Future Work
+For this project, there are many directions that the project could take after this. One route is that the a user could use a shotgun(directional) mic and pick up the audio from the fan from a distance. We didn't have access to one to test this theory but it is a possibliity as these mics specialize in sound in a direction at an angle. 
 
+Another option is after using placing the program on a user's computer, using a microphone hooked up to a small recorder used for storing the messages. If this were small enough and placed close to a desktop computer, such as one in a classroom, it would be easy to conceal. The recorder could then be collected by the attacker (he could even wear a flourescent vest for a social engineering angle to the attack) then the audio played back and the message decoded.
+
+A final possible avenue of attack would be more of a targeted attack for a sepcific type of data. The attacking program could be modified to grab a specific type of data, such as Linux login info or UIUC credentials. It could then only communicate this data whenever it finds it, and not be constantly recording data.
   
 ## Tools Used:
 
