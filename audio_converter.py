@@ -16,7 +16,7 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
 CHUNK = 1024
-BITS_PER_LETTER = 3
+BITS_PER_TICK = 3
 BIT_RECORD_SECONDS = 8
 
 audio = pyaudio.PyAudio()
@@ -29,21 +29,21 @@ while(1):
     future =  calendar.timegm(time.gmtime()) + 4*(BIT_RECORD_SECONDS)
     frames = []
     data = []
-    for i in range(0, BITS_PER_LETTER):
+    for i in range(0, BITS_PER_TICK):
         frame = []
         for j in range(0, int(RATE / CHUNK * BIT_RECORD_SECONDS)):
             frame.append(stream.read(CHUNK))
         frames.append(frame)
 
-
+    frame = []
     for i in frames:
         frame = []
         for k in i:
             for j in k:
-                frame.append(ord(j))
+                frame.append(float(ord(j))
         data.append(frame)
     data = np.array(data)
-    Thread(target=handler, args=(data)).start()
+    Thread(target=handler, args=data).start()
     curr_time =  calendar.timegm(time.gmtime())
     time.sleep((future - curr_time))
 
