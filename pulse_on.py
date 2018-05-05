@@ -1,4 +1,6 @@
-import numpy as np
+# This file does cpu activity for a given number of seconds.
+# Should run as many in parallel as there are logical cores.
+
 import time
 import sys
 
