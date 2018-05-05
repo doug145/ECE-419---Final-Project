@@ -23,7 +23,13 @@ Assuming 100% CPU activity starting at t = 0 seconds and CPU activity << 100% at
   * Time at which CPU fan returns to normal speed: t = 5? seconds
   
 ### Spectrograms of two different microphone postions:
-![alt text](https://github.com/doug145/ECE-419---Final-Project/edit/master/readme_images/spectrogram.png "Spectrograms")
+
+Here we see spectrograms of audio recordings at two different microphone locations. The first spectrogram (top) has the microphone approximately an inch away from the CPU fan output and the second (bottom) has the microphone making physical contact with the laptop chassis at the CPU fan output. Notice that while the CPU fan pulses are visible in both spectrograms, they are more pronounced in the second case.
+
+![](https://github.com/doug145/ECE-419---Final-Project/blob/master/readme_images/spectrogram.png?raw=true)
+
+
+
   
 ## Tools Used:
 
