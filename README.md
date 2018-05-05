@@ -1,11 +1,17 @@
-# Covert Communication Protocol Via CPU Fan and Microphone
+# Covert Communication System Via CPU Fan and Microphone
 ## Security Lab Group Project, Spring 2018 
 
-The goal of this project is to create a system that could be used to relay information from one computer to another within close physical proximity.
+The goal of this project is to create a system that could be used to relay information from one computer to another within close physical proximity. The system would be able to transmit small amounts of information without relying on a network, hence a compromise would be more difficult. 
 
 ## Message Structure:
 
 Messages are first transcoded using a form of pulse position modulation and are then transduced to audible CPU fan noises by ramping up CPU activity. As one would expect, communication rates are slow, however in many contexts this would be irrelevant.
+
+## Theoretical Dilemnas 
+While this may work in a controlled environment, there are many environmental features that could render this attack useless. Examples include:
+  * Any computer with its fans on the highest or close to the highest setting
+  * Any machine in a loud environment
+  * Any machine that physical access to is prohibited
 
 ## Experimental Setup:
 
