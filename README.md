@@ -22,7 +22,8 @@ Assuming 100% CPU activity starting at t = 0 seconds and CPU activity << 100% at
   * Time at which CPU fan reaches maximum speed: t = 5? seconds
   * Time at which CPU fan returns to normal speed: t = 5? seconds
   
-  PLOT
+### Spectrograms of two different microphone postions:
+![alt text](https://github.com/doug145/ECE-419---Final-Project/edit/master/readme_images/spectrogram.png "Spectrograms")
   
 ## Tools Used:
 
