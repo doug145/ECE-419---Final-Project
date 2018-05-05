@@ -13,12 +13,11 @@ def handler(*data):
 # https://gist.github.com/mabdrabo/8678538
 
 FORMAT = pyaudio.paInt16
-CHANNELS = 2
+CHANNELS = 1
 RATE = 44100
 CHUNK = 1024
 BITS_PER_LETTER = 3
-BIT_RECORD_SECONDS = 4
-WAVE_OUTPUT_FILENAME = "file.wav"
+BIT_RECORD_SECONDS = 8
 
 audio = pyaudio.PyAudio()
 
@@ -27,26 +26,26 @@ stream = audio.open(format=FORMAT, channels=CHANNELS,
                 frames_per_buffer=CHUNK)
 
 while(1):
-    future =  calendar.timegm(time.gmtime()) + 16
+    future =  calendar.timegm(time.gmtime()) + 4*(BIT_RECORD_SECONDS)
     frames = []
     data = []
     for i in range(0, BITS_PER_LETTER):
-        for i in range(0, int(RATE / CHUNK * BIT_RECORD_SECONDS)):
-            frames.append(stream.read(CHUNK))
+        frame = []
+        for j in range(0, int(RATE / CHUNK * BIT_RECORD_SECONDS)):
+            frame.append(stream.read(CHUNK))
+        frames.append(frame)
+
 
     for i in frames:
         frame = []
-        for j in i:
-            frame.append(ord(j))
+        for k in i:
+            for j in k:
+                frame.append(ord(j))
         data.append(frame)
     data = np.array(data)
     Thread(target=handler, args=(data)).start()
     curr_time =  calendar.timegm(time.gmtime())
-    #print("CURR_TIME: " + str(curr_time))
-    #print("FUTURE: " + str(future))
-    #print(future - curr_time)
     time.sleep((future - curr_time))
-    #print("LOOP")
 
 # stop Recording
 stream.stop_stream()
