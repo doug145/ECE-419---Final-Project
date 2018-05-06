@@ -3,8 +3,10 @@ import numpy as np
 from threading import Thread
 import calendar
 import time
+import vdecoder
 
 def handler(*data):
+    vdecoder.decode(data)
     for i in data:
         for j in i:
             print(j)
@@ -40,7 +42,7 @@ while(1):
         frame = []
         for k in i:
             for j in k:
-                frame.append(float(ord(j))
+                frame.append(float(ord(j)))
         data.append(frame)
     data = np.array(data)
     Thread(target=handler, args=data).start()
