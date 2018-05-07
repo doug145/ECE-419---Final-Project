@@ -4,6 +4,16 @@ import numpy as np
 import scipy.io.wavfile
 from scipy.signal import spectrogram,medfilt
 
+"""
+Takes a string of format xxx where each x is either 0, 1, or 2
+does not check to make sure it is correct, so the caller is
+responsible for that.
+"""
+def decode_ternary(n):
+    if n == "222":
+        return ' '
+    return chr(9*int(n[0]) + 3*int(n[1]) + int(n[2]) + 97)
+
 def decode(data):
   '''
   #filename = "test-001.wav"
@@ -49,7 +59,7 @@ def decode(data):
 
   #audio sample piped in as 24 second chunks
   num_sections = 3
-  thresh = -200000 
+  thresh = -200000
   section_length = len(med_filtered)/num_sections
 
   data = list()
