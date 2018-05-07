@@ -3,10 +3,10 @@ import numpy as np
 from threading import Thread
 import calendar
 import time
-import vdecoder
+import decoder
 
 def handler(*data):
-    vdecoder.decode(data)
+    decoder.decode(data)
     for i in data:
         for j in i:
             print(j)
