@@ -70,9 +70,10 @@ def decode(data):
     #print start, end
     #print med_filtered[start:end]
     sum_val = np.sum(med_filtered[start:end])
-    data.append(0)
     if sum_val > thresh:
       data.append(1)
+    else:
+      data.append(0)
     #print sum_val
 
   for i in range(len(data)/3):
