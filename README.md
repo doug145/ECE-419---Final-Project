@@ -23,10 +23,10 @@ Room Temperature: ~72 Degrees F
 
 ## CPU Fan Characteristics:
 
-Assuming 100% CPU activity starting at t = 0 seconds and CPU activity << 100% at t = 3? seconds:
+Assuming 100% CPU activity starting at t = 0 seconds and CPU activity << 100% at t = 6 seconds:
   * Time at which CPU fan speed begins to increase: t = 3 seconds
-  * Time at which CPU fan reaches maximum speed: t = 5? seconds
-  * Time at which CPU fan returns to normal speed: t = 5? seconds
+  * Time at which CPU fan reaches maximum speed: t = 5 seconds
+  * Time at which CPU fan returns to normal speed: t = 10 seconds
   
 ### Spectrograms of two different microphone postions:
 
