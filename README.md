@@ -41,7 +41,10 @@ For this project, there are many directions that the project could take after th
 Another option is after using placing the program on a user's computer, using a microphone hooked up to a small recorder used for storing the messages. If this were small enough and placed close to a desktop computer, such as one in a classroom, it would be easy to conceal. The recorder could then be collected by the attacker (he could even wear a flourescent vest for a social engineering angle to the attack) then the audio played back and the message decoded.
 
 A final possible avenue of attack would be more of a targeted attack for a sepcific type of data. The attacking program could be modified to grab a specific type of data, such as Linux login info or UIUC credentials. It could then only communicate this data whenever it finds it, and not be constantly recording data.
-  
+
 ## Tools Used:
 
 pyaudio, numpy, scipy
+
+## Issues:
+Although we got the transmission aspect of this project fully functional, we did not manage to get the recieving end fully working. The reciever requires compicated digital signal processing in order to make it robust. Given more time, we may have succeded. The method we experimented involved taking a spectrograph in realtime and from the microphone. We then perform summations across a subset of frequencies for each time step. Next we performed a convolution using a kernel roughly in the shape of what a pulse would look like. We then did a median filter to smooth out any unrelated noise. Finally we performed a sum across the resulting array, which was used for determining where the pulse showed up within a frame.
