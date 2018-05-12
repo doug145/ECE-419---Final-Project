@@ -7,13 +7,11 @@ The goal of this project is to create a system that could be used to relay infor
 The system is composed of two parts, a transmitter and a decoder. The transmitter will convert each letter of a string into a ternary set of bits with length three. The useable characters are the 26 letters of the alphabet and the space character. 
 These values are sent to a PPM (Pulse Position Modulation) function that, based on the ternary bits, will ramp up CPU cycles to run the fan at a specific time. The timing of the fan will tell the decoder what the value of the character is. For example, take the letter 'l' which is "102" in ternary, and a pulse time of 8 seconds. To transmit the '1', we would rest for 8 seconds (this skips the zero), pulse for 8 seconds (to tell the decoder we want the 1), and rest for another 16 (to skip the 2 and cool down the processor so the fan stops). For the '0', it would pulse for 8 seconds then rest for 24 seconds. Finally, to transmit the '2', you would rest for 16 seconds, pulse for 8, then rest for another 8 seconds. This gives us a protocol to send the information over.
 
+![](https://github.com/doug145/ECE-419---Final-Project/blob/master/readme_images/frame.png?raw=true)
+
 The decoder, on the other hand, will listen for the fan on the infected machine. It will listen for a time length of 3 times the pulse length (to get the readings for the 0, 1, and 2 bits). It will not need to listen for the fourth pulse time in each frame because there is no data being transmitted during that period. It will then reassemble the frames into a ternary string, and then reassemble that string into a letter. Our implementation prints the value to the screen but anyting could be done with it. 
 
-## Message Structure:
-
-Messages are first transcoded using a form of pulse position modulation and are then transduced to audible CPU fan noises by ramping up CPU activity. As one would expect, communication rates are slow, however in many contexts this would be irrelevant.
-
-## Theoretical Dilemnas 
+## Theoretical Dilemmas 
 While this may work in a controlled environment, there are many environmental features that could render this attack useless. Examples include:
   * Any computer with its fans on the highest or close to the highest setting
   * Any machine in a loud environment
@@ -33,6 +31,8 @@ Assuming 100% CPU activity starting at t = 0 seconds and CPU activity << 100% at
   * Time at which CPU fan speed begins to increase: t = 3 seconds
   * Time at which CPU fan reaches maximum speed: t = 5 seconds
   * Time at which CPU fan returns to normal speed: t = 10 seconds
+  
+![](https://github.com/doug145/ECE-419---Final-Project/blob/master/readme_images/transmission.png?raw=true)
   
 ### Spectrograms of two different microphone postions:
 
