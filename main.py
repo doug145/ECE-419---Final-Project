@@ -6,7 +6,7 @@ import subprocess as sp
 THREAD_COUNT = 4
 BITS_PER_FRAME = 3
 BASE = 3
-PULSE_TIME = 1
+PULSE_TIME = 10
 
 
 #seconds_to_run = int(sys.argv[1])
@@ -42,7 +42,8 @@ def ppm(x):
    frame[int(x)] = 1
    for t in frame:
       if(t):
-          pulse_on(PULSE_TIME)
+          pulse_on(6)
+          pulse_off(4)
       else:
           pulse_off(PULSE_TIME)
    return frame
@@ -66,7 +67,7 @@ def transmit(sequence):
          print ppm(f)
          
 
-transmit("asdf")
+transmit("csdf")
       
 
 

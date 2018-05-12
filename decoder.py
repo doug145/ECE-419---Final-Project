@@ -1,4 +1,5 @@
 # This file is to decode messages from audio recording in realtime.
+import matplotlib.pyplot as plt
 
 import numpy as np
 import scipy.io.wavfile
@@ -24,67 +25,49 @@ def decode(data):
   audio_sample = audio_sample[1][:,0].astype(float)
   audio_sample = audio_sample/np.average(audio_sample)
   '''
-  sampling_rate = 4410
-  audio_sample = np.array(data[0]+data[1]+data[2]) #combine 3 sections into numpy array
-  audio_sample = audio_sample/np.average(audio_sample)
-
-  f, t, sxx = spectrogram(audio_sample,sampling_rate,nperseg=2048,noverlap=32,window='blackman')
-
-  sxx = np.log10(sxx)
-
-
-  import matplotlib.pyplot as plt
-
-  '''
-  plt.pcolormesh(t, f[:10], sxx[:10,:],cmap='Greys_r')
-  plt.ylabel('Frequency [Hz]')
-  plt.xlabel('Time [sec]')
-  plt.colorbar()
-  plt.show()
-  '''
-
-  # Seconds
-  pulse_length = 8
-
+  data = data[0]
+  sampling_rate = 44100
+  #udio_sample = np.array(data[0]+data[1]+data[2]) #combine 3 sections into numpy array
+  #udio_sample = audio_sample/np.average(audio_sample)
+  pulse_length = 10
   kernel = np.zeros(pulse_length * sampling_rate / 2048, dtype=float)
   l = len(kernel)
   kernel[:] = -1.0
   kernel[l/2:] = 1.0
-
-  compressed_freq_range = sxx[:,:]
-  compressed_freq_range = np.sum(compressed_freq_range,axis=0)
-
-  convolved = np.convolve(kernel,compressed_freq_range)
-  print len(compressed_freq_range)
-  med_filtered = medfilt(compressed_freq_range,kernel_size=177)
-
-  #audio sample piped in as 24 second chunks
-  num_sections = 3
+  sum_vals = []
   thresh = -200000
-  section_length = len(med_filtered)/num_sections
+  print "HERE: 1"
+  for idx,d in enumerate(data):
+    f, t, sxx = spectrogram(d,sampling_rate,nperseg=2048,noverlap=32,window='blackman')
+    sxx = np.log10(sxx)
+    #plt.clf()
+    #plt.pcolormesh(t, f[:], sxx[:,:],cmap='Greys_r')
+    #plt.ylabel('Frequency [Hz]')
+    #plt.xlabel('Time [sec]')
+    #plt.colorbar()
+    #plt.savefig(str(idx)+".png")
+    # Seconds
+    freqs = np.shape(sxx)[0]
+    print "F:",freqs
+    compressed_freq_range = sxx[:freqs/5,:]
+    compressed_freq_range = np.sum(compressed_freq_range,axis=0)
+    convolved = np.convolve(kernel,compressed_freq_range)
+    med_filtered = medfilt(convolved,kernel_size=31)
+    plt.clf()
+    plt.plot(med_filtered)
+    #plt.ylim([-512,-150])
+    plt.savefig(str(idx)+".png")
 
-  data = list()
-  for section in range(num_sections):
-    start = section_length*section
-    end = section_length*(section+1)
-    #print start, end
-    #print med_filtered[start:end]
-    sum_val = np.sum(med_filtered[start:end])
-    if sum_val > thresh:
-      data.append(1)
-    else:
-      data.append(0)
-    #print sum_val
-
-  for i in range(len(data)/3):
-      str_num = chr(data[i]) + chr(data[i+1]) + chr(data[i+2])
-      print(decode_ternary(str_num))
-
+    sum_vals.append(np.sum(med_filtered))
+  print "SUMS:", sum_vals
+  pulse_position = np.argmin(sum_vals)
+  #or i in range(len(data)/3):
+  #   str_num = chr(data[i]) + chr(data[i+1]) + chr(data[i+2])
+  #   print(decode_ternary(str_num))
   #set of three ternary bits of data
   #return tuple(data)
-
-  plt.plot(med_filtered)
+  #plt.plot(med_filtered)
   #plt.plot(sxx)
-  plt.show()
-
-#decode('test-001.wav')
+  #plt.show()
+  print "Returning from decoder function call."
+  return pulse_position

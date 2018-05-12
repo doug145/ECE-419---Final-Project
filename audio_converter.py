@@ -6,12 +6,13 @@ import time
 import decoder
 
 def handler(*data):
-    decoder.decode(data)
+    return decoder.decode(data)
     '''
     for i in data:
         for j in i:
             print(j)
     '''
+    
 
 # edited from this link
 # https://gist.github.com/mabdrabo/8678538
@@ -21,7 +22,7 @@ CHANNELS = 1
 RATE = 44100
 CHUNK = 1024
 BITS_PER_TICK = 3
-BIT_RECORD_SECONDS = 8
+BIT_RECORD_SECONDS = 10
 
 audio = pyaudio.PyAudio()
 
@@ -30,6 +31,8 @@ stream = audio.open(format=FORMAT, channels=CHANNELS,
                 frames_per_buffer=CHUNK)
 
 while(1):
+  frame_buffer = []
+  for letter in xrange(3):
     future =  calendar.timegm(time.gmtime()) + 4*(BIT_RECORD_SECONDS)
     frames = []
     data = []
@@ -47,9 +50,13 @@ while(1):
                 frame.append(float(ord(j)))
         data.append(frame)
     data = np.array(data)
-    Thread(target=handler, args=data).start()
+    frame_buffer.append( handler(data) )
+    print "CURRENT STATUS OF FRAME BUFFER:", frame_buffer
     curr_time =  calendar.timegm(time.gmtime())
     time.sleep((future - curr_time))
+    exit()
+  # Frame buffer holds 3 frames, for one letter
+  # Convert to a letter.
 
 # stop Recording
 stream.stop_stream()
