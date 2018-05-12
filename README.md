@@ -54,3 +54,6 @@ pyaudio, numpy, scipy
 
 ## Issues:
 Although we got the transmission aspect of this project fully functional, we did not manage to get the recieving end fully working. The reciever requires compicated digital signal processing in order to make it robust. Given more time, we may have succeded. The method we experimented involved taking a spectrograph in realtime and from the microphone. We then perform summations across a subset of frequencies for each time step. Next we performed a convolution using a kernel roughly in the shape of what a pulse would look like. We then did a median filter to smooth out any unrelated noise. Finally we performed a sum across the resulting array, which was used for determining where the pulse showed up within a frame.
+While Processing the real-time audio input proved to be more difficult than anticipated, we were able to process pre-recorded audio in such a way that made it easy to determine the fan noise at the given time. Below is an image of a processed pre-recored audio sample. From the image, we can see easily see where the fan noise was noticeably high (peaks).
+
+![](https://github.com/doug145/ECE-419---Final-Project/blob/master/readme_images/test-001.png?raw=true)
