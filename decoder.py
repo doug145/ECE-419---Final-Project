@@ -10,6 +10,7 @@ does not check to make sure it is correct, so the caller is
 responsible for that.
 """
 def decode_ternary(n):
+    print("----------------N: " + str(n) + " ---------------------" )
     if n == "222":
         return ' '
     return chr(9*int(n[0]) + 3*int(n[1]) + int(n[2]) + 97)
