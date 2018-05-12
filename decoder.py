@@ -66,15 +66,17 @@ def decode(data):
   for section in range(num_sections):
     start = section_length*section
     end = section_length*(section+1)
-    print start, end
+    #print start, end
     #print med_filtered[start:end]
     sum_val = np.sum(med_filtered[start:end])
     data.append(0)
     if sum_val > thresh:
       data.append(1)
-    print sum_val
+    #print sum_val
 
-  print data
+  for i in range(len(data)/3):
+      str_num = chr(data[i]) + chr(data[i+1]) + chr(data[i+2])
+      print(decode_ternary(str_num))
 
   #set of three ternary bits of data
   #return tuple(data)
